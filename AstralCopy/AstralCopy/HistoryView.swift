@@ -4,6 +4,7 @@ import SwiftUI
 struct HistoryView: View {
     @ObservedObject private var clipboard = ClipboardService.shared
     @ObservedObject private var historyManager = HistoryManager.shared
+    @ObservedObject private var appSettings = AppSettings.shared
 
     var body: some View {
         VStack(spacing: 0) {
@@ -33,7 +34,7 @@ struct HistoryView: View {
     private var historyList: some View {
         List {
             ForEach(clipboard.history) { item in
-                HistoryRowView(item: item)
+                HistoryRowView(item: item, compact: appSettings.compactMode)
                     .contentShape(Rectangle())
                     .onTapGesture {
                         historyManager.pasteItem(item)
@@ -48,16 +49,27 @@ struct HistoryView: View {
 
 struct HistoryRowView: View {
     let item: ClipboardItem
+    let compact: Bool
+
+    @State private var isHovered = false
 
     var body: some View {
-        HStack(spacing: 10) {
+        HStack(spacing: compact ? 6 : 10) {
             contentView
             Spacer()
             Text(item.date, style: .relative)
                 .font(.caption2)
                 .foregroundStyle(.tertiary)
         }
-        .padding(.vertical, 4)
+        .padding(.vertical, compact ? 2 : 4)
+        .padding(.horizontal, 4)
+        .background(
+            RoundedRectangle(cornerRadius: 5)
+                .fill(isHovered ? Color.primary.opacity(0.08) : Color.clear)
+        )
+        .onHover { hovering in
+            isHovered = hovering
+        }
     }
 
     @ViewBuilder
@@ -65,15 +77,15 @@ struct HistoryRowView: View {
         switch item.content {
         case .text(let string):
             Text(string)
-                .lineLimit(3)
-                .font(.system(.body, design: .monospaced))
+                .lineLimit(compact ? 1 : 3)
+                .font(.system(compact ? .caption : .body, design: .monospaced))
                 .truncationMode(.tail)
 
         case .image(let nsImage):
             Image(nsImage: nsImage)
                 .resizable()
                 .scaledToFit()
-                .frame(maxHeight: 60)
+                .frame(maxHeight: compact ? 30 : 60)
                 .clipShape(RoundedRectangle(cornerRadius: 4))
         }
     }

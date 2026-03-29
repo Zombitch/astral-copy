@@ -6,6 +6,7 @@ struct MenuBarView: View {
     @ObservedObject private var launchSettings = LaunchSettings.shared
     @ObservedObject private var historyManager = HistoryManager.shared
     @ObservedObject private var permissions = PermissionsManager.shared
+    @ObservedObject private var appSettings = AppSettings.shared
 
     var body: some View {
         VStack(spacing: 0) {
@@ -63,6 +64,27 @@ struct MenuBarView: View {
                     .toggleStyle(.switch)
                     .controlSize(.small)
 
+                Toggle("menu.compactMode", isOn: $appSettings.compactMode)
+                    .toggleStyle(.switch)
+                    .controlSize(.small)
+
+                // Appearance picker
+                HStack {
+                    Text("menu.appearance")
+                        .font(.caption)
+                    Spacer()
+                    Picker("", selection: Binding(
+                        get: { appSettings.appearanceMode },
+                        set: { appSettings.appearanceMode = $0 }
+                    )) {
+                        ForEach(AppSettings.AppearanceMode.allCases, id: \.self) { mode in
+                            Text(mode.localizedName).tag(mode)
+                        }
+                    }
+                    .pickerStyle(.segmented)
+                    .frame(width: 160)
+                }
+
                 Divider()
 
                 // Permissions status
@@ -76,6 +98,18 @@ struct MenuBarView: View {
                     granted: permissions.inputMonitoringGranted,
                     action: permissions.openInputMonitoringSettings
                 )
+
+                // Fallback mode indicator
+                if EventTapManager.shared.isFallbackMode {
+                    HStack(spacing: 6) {
+                        Image(systemName: "info.circle.fill")
+                            .font(.caption)
+                            .foregroundStyle(.blue)
+                        Text("menu.fallbackMode")
+                            .font(.caption2)
+                            .foregroundStyle(.secondary)
+                    }
+                }
 
                 Divider()
 
@@ -116,29 +150,50 @@ struct MenuBarView: View {
 
     @ViewBuilder
     private func menuRow(for item: ClipboardItem) -> some View {
-        Button {
+        MenuItemRow(item: item, compact: appSettings.compactMode) {
             historyManager.pasteItem(item)
-        } label: {
+        }
+    }
+}
+
+// MARK: - Menu Item Row (with hover)
+
+struct MenuItemRow: View {
+    let item: ClipboardItem
+    let compact: Bool
+    let action: () -> Void
+
+    @State private var isHovered = false
+
+    var body: some View {
+        Button(action: action) {
             HStack(spacing: 8) {
                 switch item.content {
                 case .text(let string):
                     Text(string)
-                        .lineLimit(2)
-                        .font(.system(.caption, design: .monospaced))
+                        .lineLimit(compact ? 1 : 2)
+                        .font(.system(compact ? .caption2 : .caption, design: .monospaced))
                         .truncationMode(.tail)
                 case .image(let nsImage):
                     Image(nsImage: nsImage)
                         .resizable()
                         .scaledToFit()
-                        .frame(maxHeight: 32)
+                        .frame(maxHeight: compact ? 20 : 32)
                         .clipShape(RoundedRectangle(cornerRadius: 3))
                 }
                 Spacer()
             }
-            .padding(.vertical, 4)
+            .padding(.vertical, compact ? 2 : 4)
             .padding(.horizontal, 6)
             .contentShape(Rectangle())
         }
         .buttonStyle(.borderless)
+        .background(
+            RoundedRectangle(cornerRadius: 4)
+                .fill(isHovered ? Color.primary.opacity(0.08) : Color.clear)
+        )
+        .onHover { hovering in
+            isHovered = hovering
+        }
     }
 }

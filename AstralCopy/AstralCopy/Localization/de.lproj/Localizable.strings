@@ -18,6 +18,9 @@
 "menu.clearAll" = "Alle löschen";
 "menu.showAll" = "Gesamten Verlauf anzeigen";
 "menu.launchAtLogin" = "Beim Anmelden starten";
+"menu.compactMode" = "Kompaktmodus";
+"menu.appearance" = "Erscheinungsbild";
+"menu.fallbackMode" = "Nutzt Cmd+Umschalt+V (Berechtigungen für Cmd+V erteilen)";
 "menu.quit" = "AstralCopy beenden";
 "menu.permission.granted" = "Erlaubt";
 "menu.permission.enable" = "Aktivieren";
@@ -25,6 +28,11 @@
 /* Settings */
 "settings.general" = "Allgemein";
 "settings.launchAtLogin" = "Beim Anmelden starten";
+"settings.compactMode" = "Kompaktmodus";
+"settings.appearance" = "Erscheinungsbild";
+"settings.appearance.system" = "System";
+"settings.appearance.light" = "Hell";
+"settings.appearance.dark" = "Dunkel";
 "settings.permissions" = "Berechtigungen";
 "settings.accessibility" = "Bedienungshilfen";
 "settings.inputMonitoring" = "Eingabeüberwachung";

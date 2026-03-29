@@ -18,6 +18,9 @@
 "menu.clearAll" = "Tout effacer";
 "menu.showAll" = "Afficher tout l'historique";
 "menu.launchAtLogin" = "Lancer au démarrage";
+"menu.compactMode" = "Mode compact";
+"menu.appearance" = "Apparence";
+"menu.fallbackMode" = "Utilise Cmd+Maj+V (accordez les autorisations pour Cmd+V)";
 "menu.quit" = "Quitter AstralCopy";
 "menu.permission.granted" = "Accordé";
 "menu.permission.enable" = "Activer";
@@ -25,6 +28,11 @@
 /* Settings */
 "settings.general" = "Général";
 "settings.launchAtLogin" = "Lancer au démarrage";
+"settings.compactMode" = "Mode compact";
+"settings.appearance" = "Apparence";
+"settings.appearance.system" = "Système";
+"settings.appearance.light" = "Clair";
+"settings.appearance.dark" = "Sombre";
 "settings.permissions" = "Autorisations";
 "settings.accessibility" = "Accessibilité";
 "settings.inputMonitoring" = "Surveillance des entrées";

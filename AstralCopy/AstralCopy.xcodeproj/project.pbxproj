@@ -17,6 +17,7 @@
 		A10008 /* LaunchSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10008; };
 		A10009 /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10009; };
 		A10010 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10010; };
+		A10013 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10015; };
 		A10011 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B10011; };
 		A10012 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B10020; };
 /* End PBXBuildFile section */
@@ -32,6 +33,7 @@
 		B10008 /* LaunchSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchSettings.swift; sourceTree = "<group>"; };
 		B10009 /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarView.swift; sourceTree = "<group>"; };
 		B10010 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		B10015 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		B10011 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B10012 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B10013 /* AstralCopy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AstralCopy.entitlements; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 				B10008 /* LaunchSettings.swift */,
 				B10009 /* MenuBarView.swift */,
 				B10010 /* SettingsView.swift */,
+				B10015 /* AppSettings.swift */,
 				B10011 /* Assets.xcassets */,
 				B10012 /* Info.plist */,
 				B10013 /* AstralCopy.entitlements */,
@@ -172,6 +175,7 @@
 				A10008 /* LaunchSettings.swift in Sources */,
 				A10009 /* MenuBarView.swift in Sources */,
 				A10010 /* SettingsView.swift in Sources */,
+				A10013 /* AppSettings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

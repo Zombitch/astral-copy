@@ -2,15 +2,20 @@ import AppKit
 import Carbon.HIToolbox
 
 /// Installs a CGEvent tap to intercept Cmd+V and show the clipboard history instead.
+/// Falls back to Cmd+Shift+V via NSEvent global monitor if the event tap can't be created.
 @MainActor
 final class EventTapManager {
     static let shared = EventTapManager()
 
     private var eventTap: CFMachPort?
     private var runLoopSource: CFRunLoopSource?
+    private var fallbackMonitor: Any?
 
     /// Whether the Cmd+V override is currently active
     var isActive: Bool { eventTap != nil }
+
+    /// Whether we're using the fallback hotkey (Cmd+Shift+V) instead of Cmd+V override
+    var isFallbackMode: Bool { fallbackMonitor != nil && eventTap == nil }
 
     private init() {}
 
@@ -32,9 +37,13 @@ final class EventTapManager {
         )
 
         guard let tap else {
-            print("[EventTapManager] Failed to create event tap — permissions missing?")
+            print("[EventTapManager] Event tap failed — falling back to Cmd+Shift+V")
+            installFallback()
             return
         }
+
+        // Event tap succeeded — remove fallback if it was active
+        removeFallback()
 
         eventTap = tap
         runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, tap, 0)
@@ -55,6 +64,7 @@ final class EventTapManager {
         }
         eventTap = nil
         runLoopSource = nil
+        removeFallback()
     }
 
     /// Called by the C callback when macOS disables the tap (e.g. after sleep/timeout).
@@ -89,6 +99,34 @@ final class EventTapManager {
             if let tap = self?.eventTap {
                 CGEvent.tapEnable(tap: tap, enable: true)
             }
+        }
+    }
+
+    // MARK: - Fallback (Cmd+Shift+V)
+
+    /// Registers a global key monitor for Cmd+Shift+V when the event tap isn't available.
+    /// This doesn't block Cmd+V — it uses a different shortcut as a graceful alternative.
+    private func installFallback() {
+        guard fallbackMonitor == nil else { return }
+        fallbackMonitor = NSEvent.addGlobalMonitorForEvents(matching: .keyDown) { event in
+            let isV = event.keyCode == UInt16(kVK_ANSI_V)
+            let hasCmd = event.modifierFlags.contains(.command)
+            let hasShift = event.modifierFlags.contains(.shift)
+            let noCtrl = !event.modifierFlags.contains(.control)
+            let noOpt = !event.modifierFlags.contains(.option)
+
+            if isV && hasCmd && hasShift && noCtrl && noOpt {
+                DispatchQueue.main.async {
+                    HistoryManager.shared.showHistory()
+                }
+            }
+        }
+    }
+
+    private func removeFallback() {
+        if let monitor = fallbackMonitor {
+            NSEvent.removeMonitor(monitor)
+            fallbackMonitor = nil
         }
     }
 }

@@ -27,6 +27,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         // Hide dock icon — pure menu-bar app
         NSApp.setActivationPolicy(.accessory)
 
+        // Apply saved appearance preference
+        AppSettings.shared.applyAppearance()
+
         // Start clipboard monitoring
         ClipboardService.shared.startMonitoring()
 
@@ -36,6 +39,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         if EventTapManager.shared.isActive {
             // Tap succeeded — permissions are definitely granted
             PermissionsManager.shared.markAllGranted()
+        } else if EventTapManager.shared.isFallbackMode {
+            // Fallback active — show onboarding so user can grant full permissions
+            PermissionsManager.shared.showOnboarding()
         } else {
             PermissionsManager.shared.showOnboarding()
         }
