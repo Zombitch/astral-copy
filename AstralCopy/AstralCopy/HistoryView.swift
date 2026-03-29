@@ -79,6 +79,7 @@ struct HistoryRowView: View {
             Text(string)
                 .lineLimit(compact ? 1 : 3)
                 .font(.system(compact ? .caption : .body, design: .monospaced))
+                .foregroundStyle(.primary)
                 .truncationMode(.tail)
 
         case .image(let nsImage):

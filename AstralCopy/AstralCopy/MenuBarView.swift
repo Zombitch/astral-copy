@@ -174,6 +174,7 @@ struct MenuItemRow: View {
                     Text(string)
                         .lineLimit(compact ? 1 : 2)
                         .font(.system(compact ? .caption2 : .caption, design: .monospaced))
+                        .foregroundStyle(.primary)
                         .truncationMode(.tail)
                 case .image(let nsImage):
                     Image(nsImage: nsImage)
@@ -188,7 +189,7 @@ struct MenuItemRow: View {
             .padding(.horizontal, 6)
             .contentShape(Rectangle())
         }
-        .buttonStyle(.borderless)
+        .buttonStyle(.plain)
         .background(
             RoundedRectangle(cornerRadius: 4)
                 .fill(isHovered ? Color.primary.opacity(0.08) : Color.clear)
