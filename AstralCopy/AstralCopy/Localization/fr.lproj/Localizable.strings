@@ -11,7 +11,6 @@
 "onboarding.inputMonitoring" = "Surveillance des entrées";
 "onboarding.inputMonitoring.description" = "Nécessaire pour détecter les raccourcis clavier globalement.";
 "onboarding.openSettings" = "Ouvrir les réglages";
-"onboarding.refresh" = "Actualiser";
 "onboarding.done" = "Terminé";
 
 /* Menu Bar */

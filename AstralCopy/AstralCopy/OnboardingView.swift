@@ -3,6 +3,7 @@ import SwiftUI
 /// First-launch onboarding that guides the user through granting permissions.
 struct OnboardingView: View {
     @ObservedObject private var permissions = PermissionsManager.shared
+    @State private var pollTimer: Timer?
 
     var body: some View {
         VStack(spacing: 24) {
@@ -40,19 +41,11 @@ struct OnboardingView: View {
 
             Spacer()
 
-            // Done / Refresh
+            // Done
             HStack {
-                Button("onboarding.refresh") {
-                    permissions.refreshStatus()
-                    if permissions.allPermissionsGranted {
-                        EventTapManager.shared.install()
-                    }
-                }
-
                 Spacer()
 
                 Button("onboarding.done") {
-                    permissions.refreshStatus()
                     if permissions.allPermissionsGranted {
                         EventTapManager.shared.install()
                     }
@@ -64,6 +57,27 @@ struct OnboardingView: View {
         }
         .padding(24)
         .frame(width: 480, height: 400)
+        .onAppear { startPolling() }
+        .onDisappear { stopPolling() }
+    }
+
+    // MARK: - Polling
+
+    private func startPolling() {
+        pollTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { _ in
+            Task { @MainActor in
+                permissions.refreshStatus()
+                if permissions.allPermissionsGranted {
+                    EventTapManager.shared.install()
+                    stopPolling()
+                }
+            }
+        }
+    }
+
+    private func stopPolling() {
+        pollTimer?.invalidate()
+        pollTimer = nil
     }
 
     // MARK: - Helpers

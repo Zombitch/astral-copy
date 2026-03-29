@@ -11,7 +11,6 @@
 "onboarding.inputMonitoring" = "Eingabeüberwachung";
 "onboarding.inputMonitoring.description" = "Erforderlich, um Tastenkombinationen global zu erkennen.";
 "onboarding.openSettings" = "Einstellungen öffnen";
-"onboarding.refresh" = "Aktualisieren";
 "onboarding.done" = "Fertig";
 
 /* Menu Bar */

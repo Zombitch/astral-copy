@@ -11,7 +11,6 @@
 "onboarding.inputMonitoring" = "Input Monitoring";
 "onboarding.inputMonitoring.description" = "Required to detect keyboard shortcuts globally.";
 "onboarding.openSettings" = "Open Settings";
-"onboarding.refresh" = "Refresh";
 "onboarding.done" = "Done";
 
 /* Menu Bar */

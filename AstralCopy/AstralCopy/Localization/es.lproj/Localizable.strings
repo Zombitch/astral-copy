@@ -11,7 +11,6 @@
 "onboarding.inputMonitoring" = "Monitoreo de entrada";
 "onboarding.inputMonitoring.description" = "Necesario para detectar atajos de teclado globalmente.";
 "onboarding.openSettings" = "Abrir Ajustes";
-"onboarding.refresh" = "Actualizar";
 "onboarding.done" = "Listo";
 
 /* Menu Bar */
