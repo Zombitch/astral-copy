@@ -56,11 +56,13 @@ final class HistoryManager: ObservableObject {
             object: panel,
             queue: .main
         ) { [weak self] _ in
-            self?.isVisible = false
-            self?.panel = nil
-            if let obs = self?.closeObserver {
-                NotificationCenter.default.removeObserver(obs)
-                self?.closeObserver = nil
+            Task { @MainActor in
+                self?.isVisible = false
+                self?.panel = nil
+                if let obs = self?.closeObserver {
+                    NotificationCenter.default.removeObserver(obs)
+                    self?.closeObserver = nil
+                }
             }
         }
     }

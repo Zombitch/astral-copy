@@ -71,9 +71,6 @@ final class ClipboardService: ObservableObject {
 
     /// Write the selected item to the pasteboard so the next Cmd+V simulates a real paste.
     func select(_ item: ClipboardItem) {
-        // Temporarily stop monitoring so we don't re-capture our own write
-        let savedChangeCount = pasteboard.changeCount
-
         pasteboard.clearContents()
 
         switch item.content {
