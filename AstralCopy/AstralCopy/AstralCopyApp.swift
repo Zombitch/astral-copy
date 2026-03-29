@@ -27,16 +27,18 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         // Hide dock icon — pure menu-bar app
         NSApp.setActivationPolicy(.accessory)
 
-        // First-launch onboarding
-        if !PermissionsManager.shared.allPermissionsGranted {
-            PermissionsManager.shared.showOnboarding()
-        }
-
         // Start clipboard monitoring
         ClipboardService.shared.startMonitoring()
 
-        // Attempt to install the event tap for Cmd+V override
+        // Try installing the event tap — its success is the real proof of permissions
         EventTapManager.shared.install()
+
+        if EventTapManager.shared.isActive {
+            // Tap succeeded — permissions are definitely granted
+            PermissionsManager.shared.markAllGranted()
+        } else {
+            PermissionsManager.shared.showOnboarding()
+        }
 
         // Register launch-at-login if first run
         LaunchSettings.shared.registerIfFirstLaunch()

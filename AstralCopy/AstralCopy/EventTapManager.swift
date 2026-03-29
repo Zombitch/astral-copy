@@ -18,7 +18,6 @@ final class EventTapManager {
 
     func install() {
         guard eventTap == nil else { return }
-        guard PermissionsManager.shared.accessibilityGranted else { return }
 
         let mask: CGEventMask = (1 << CGEventType.keyDown.rawValue)
 

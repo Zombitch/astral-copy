@@ -22,10 +22,21 @@ final class PermissionsManager: ObservableObject {
     // MARK: - Public
 
     func refreshStatus() {
+        // If the event tap is already active, permissions are definitely granted
+        // regardless of what AXIsProcessTrusted() reports
+        if EventTapManager.shared.isActive {
+            accessibilityGranted = true
+            inputMonitoringGranted = true
+            return
+        }
         accessibilityGranted = AXIsProcessTrusted()
-        // Input monitoring is implicitly tested when the event tap succeeds;
-        // there's no public API to query it directly, so we approximate.
         inputMonitoringGranted = accessibilityGranted
+    }
+
+    /// Called when the event tap installs successfully, proving permissions are granted.
+    func markAllGranted() {
+        accessibilityGranted = true
+        inputMonitoringGranted = true
     }
 
     func showOnboarding() {
