@@ -1,0 +1,33 @@
+/* History */
+"history.title" = "Zwischenablage-Verlauf";
+"history.empty" = "Noch keine Elemente kopiert";
+
+/* Onboarding */
+"onboarding.title" = "Willkommen bei AstralCopy";
+"onboarding.welcome" = "Willkommen bei AstralCopy";
+"onboarding.subtitle" = "AstralCopy benötigt zwei Berechtigungen, um Cmd+V zu überschreiben und den Zwischenablage-Verlauf anzuzeigen.";
+"onboarding.accessibility" = "Bedienungshilfen";
+"onboarding.accessibility.description" = "Erforderlich, um Cmd+V abzufangen und das Einfügen zu simulieren.";
+"onboarding.inputMonitoring" = "Eingabeüberwachung";
+"onboarding.inputMonitoring.description" = "Erforderlich, um Tastenkombinationen global zu erkennen.";
+"onboarding.openSettings" = "Einstellungen öffnen";
+"onboarding.refresh" = "Aktualisieren";
+"onboarding.done" = "Fertig";
+
+/* Menu Bar */
+"menu.recentItems" = "Letzte Elemente";
+"menu.clearAll" = "Alle löschen";
+"menu.showAll" = "Gesamten Verlauf anzeigen";
+"menu.launchAtLogin" = "Beim Anmelden starten";
+"menu.quit" = "AstralCopy beenden";
+
+/* Settings */
+"settings.general" = "Allgemein";
+"settings.launchAtLogin" = "Beim Anmelden starten";
+"settings.permissions" = "Berechtigungen";
+"settings.accessibility" = "Bedienungshilfen";
+"settings.inputMonitoring" = "Eingabeüberwachung";
+"settings.grant" = "Erlauben";
+"settings.refreshPermissions" = "Berechtigungen aktualisieren";
+"settings.about" = "Über";
+"settings.version" = "Version";
