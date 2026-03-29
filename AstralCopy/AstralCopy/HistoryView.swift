@@ -76,7 +76,8 @@ struct HistoryRowView: View {
     private var contentView: some View {
         switch item.content {
         case .text(let string):
-            Text(string)
+            Text(string.trimmingCharacters(in: .whitespacesAndNewlines)
+                    .replacingOccurrences(of: "\\s+", with: " ", options: .regularExpression))
                 .lineLimit(compact ? 1 : 3)
                 .font(.system(compact ? .caption : .body, design: .monospaced))
                 .foregroundStyle(.primary)
