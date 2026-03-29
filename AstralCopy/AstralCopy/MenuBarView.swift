@@ -171,7 +171,8 @@ struct MenuItemRow: View {
             HStack(spacing: 8) {
                 switch item.content {
                 case .text(let string):
-                    Text(string)
+                    Text(string.trimmingCharacters(in: .whitespacesAndNewlines)
+                            .replacingOccurrences(of: "\\s+", with: " ", options: .regularExpression))
                         .lineLimit(compact ? 1 : 2)
                         .font(.system(compact ? .caption2 : .caption, design: .monospaced))
                         .foregroundStyle(.primary)
