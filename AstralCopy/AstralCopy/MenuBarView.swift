@@ -5,6 +5,7 @@ struct MenuBarView: View {
     @ObservedObject private var clipboard = ClipboardService.shared
     @ObservedObject private var launchSettings = LaunchSettings.shared
     @ObservedObject private var historyManager = HistoryManager.shared
+    @ObservedObject private var permissions = PermissionsManager.shared
 
     var body: some View {
         VStack(spacing: 0) {
@@ -61,6 +62,20 @@ struct MenuBarView: View {
 
                 Divider()
 
+                // Permissions status
+                permissionStatusRow(
+                    label: String(localized: "settings.accessibility"),
+                    granted: permissions.accessibilityGranted,
+                    action: permissions.openAccessibilitySettings
+                )
+                permissionStatusRow(
+                    label: String(localized: "settings.inputMonitoring"),
+                    granted: permissions.inputMonitoringGranted,
+                    action: permissions.openInputMonitoringSettings
+                )
+
+                Divider()
+
                 Button("menu.quit") {
                     NSApplication.shared.terminate(nil)
                 }
@@ -73,6 +88,28 @@ struct MenuBarView: View {
     }
 
     // MARK: - Helpers
+
+    private func permissionStatusRow(label: String, granted: Bool, action: @escaping () -> Void) -> some View {
+        HStack(spacing: 6) {
+            Image(systemName: granted ? "checkmark.circle.fill" : "exclamationmark.triangle.fill")
+                .font(.caption)
+                .foregroundStyle(granted ? .green : .orange)
+            Text(label)
+                .font(.caption)
+            Spacer()
+            if granted {
+                Text("menu.permission.granted")
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+            } else {
+                Button("menu.permission.enable") {
+                    action()
+                }
+                .font(.caption2)
+                .controlSize(.mini)
+            }
+        }
+    }
 
     @ViewBuilder
     private func menuRow(for item: ClipboardItem) -> some View {

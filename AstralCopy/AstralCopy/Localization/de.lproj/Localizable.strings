@@ -19,6 +19,8 @@
 "menu.showAll" = "Gesamten Verlauf anzeigen";
 "menu.launchAtLogin" = "Beim Anmelden starten";
 "menu.quit" = "AstralCopy beenden";
+"menu.permission.granted" = "Erlaubt";
+"menu.permission.enable" = "Aktivieren";
 
 /* Settings */
 "settings.general" = "Allgemein";

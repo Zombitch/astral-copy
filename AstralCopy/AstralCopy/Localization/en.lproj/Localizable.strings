@@ -19,6 +19,8 @@
 "menu.showAll" = "Show All History";
 "menu.launchAtLogin" = "Launch at Login";
 "menu.quit" = "Quit AstralCopy";
+"menu.permission.granted" = "Granted";
+"menu.permission.enable" = "Enable";
 
 /* Settings */
 "settings.general" = "General";
