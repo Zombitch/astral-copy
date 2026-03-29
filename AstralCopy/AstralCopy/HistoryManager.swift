@@ -9,6 +9,7 @@ final class HistoryManager: ObservableObject {
     @Published var isVisible = false
 
     private var panel: NSPanel?
+    private var closeObserver: NSObjectProtocol?
 
     private init() {}
 
@@ -48,9 +49,27 @@ final class HistoryManager: ObservableObject {
 
         panel.makeKeyAndOrderFront(nil)
         self.panel = panel
+
+        // Stay in sync if the user closes the panel via the close button or clicking away
+        closeObserver = NotificationCenter.default.addObserver(
+            forName: NSWindow.willCloseNotification,
+            object: panel,
+            queue: .main
+        ) { [weak self] _ in
+            self?.isVisible = false
+            self?.panel = nil
+            if let obs = self?.closeObserver {
+                NotificationCenter.default.removeObserver(obs)
+                self?.closeObserver = nil
+            }
+        }
     }
 
     func dismissHistory() {
+        if let obs = closeObserver {
+            NotificationCenter.default.removeObserver(obs)
+            closeObserver = nil
+        }
         panel?.close()
         panel = nil
         isVisible = false
