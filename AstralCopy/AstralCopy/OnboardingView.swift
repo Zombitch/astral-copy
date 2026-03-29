@@ -10,7 +10,7 @@ struct OnboardingView: View {
             VStack(spacing: 8) {
                 Image(systemName: "doc.on.clipboard.fill")
                     .font(.system(size: 48))
-                    .foregroundStyle(.accent)
+                    .foregroundStyle(Color.accentColor)
                 Text("onboarding.welcome")
                     .font(.title.bold())
                 Text("onboarding.subtitle")
