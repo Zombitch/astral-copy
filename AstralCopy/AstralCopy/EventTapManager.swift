@@ -58,6 +58,12 @@ final class EventTapManager {
         runLoopSource = nil
     }
 
+    /// Called by the C callback when macOS disables the tap (e.g. after sleep/timeout).
+    func reenableTap() {
+        guard let tap = eventTap else { return }
+        CGEvent.tapEnable(tap: tap, enable: true)
+    }
+
     /// Simulate a real Cmd+V so the frontmost app receives the paste.
     func simulatePaste() {
         // Temporarily disable our tap so we don't intercept our own simulated paste
@@ -100,9 +106,7 @@ private func eventTapCallback(
 
     // If the tap is disabled by the system (e.g. after sleep), re-enable it
     if type == .tapDisabledByTimeout || type == .tapDisabledByUserInput {
-        if let tap = EventTapManager.shared.eventTap {
-            CGEvent.tapEnable(tap: tap, enable: true)
-        }
+        DispatchQueue.main.async { EventTapManager.shared.reenableTap() }
         return Unmanaged.passRetained(event)
     }
 
