@@ -19,18 +19,21 @@ final class AppSettings: ObservableObject {
         }
     }
 
-    @AppStorage("compactMode") var compactMode: Bool = false
-    @AppStorage("appearanceMode") private var appearanceModeRaw: String = AppearanceMode.system.rawValue
+    @Published var compactMode: Bool {
+        didSet { UserDefaults.standard.set(compactMode, forKey: "compactMode") }
+    }
 
-    var appearanceMode: AppearanceMode {
-        get { AppearanceMode(rawValue: appearanceModeRaw) ?? .system }
-        set {
-            appearanceModeRaw = newValue.rawValue
+    @Published var appearanceMode: AppearanceMode {
+        didSet {
+            UserDefaults.standard.set(appearanceMode.rawValue, forKey: "appearanceMode")
             applyAppearance()
         }
     }
 
     private init() {
+        self.compactMode = UserDefaults.standard.bool(forKey: "compactMode")
+        let raw = UserDefaults.standard.string(forKey: "appearanceMode") ?? AppearanceMode.system.rawValue
+        self.appearanceMode = AppearanceMode(rawValue: raw) ?? .system
         applyAppearance()
     }
 

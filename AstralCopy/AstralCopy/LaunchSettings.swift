@@ -6,13 +6,26 @@ import SwiftUI
 final class LaunchSettings: ObservableObject {
     static let shared = LaunchSettings()
 
-    @AppStorage("launchAtLogin") var launchAtLogin: Bool = true {
-        didSet { updateRegistration() }
+    @Published var launchAtLogin: Bool {
+        didSet {
+            UserDefaults.standard.set(launchAtLogin, forKey: "launchAtLogin")
+            updateRegistration()
+        }
     }
 
-    @AppStorage("hasLaunchedBefore") private var hasLaunchedBefore: Bool = false
+    private var hasLaunchedBefore: Bool {
+        get { UserDefaults.standard.bool(forKey: "hasLaunchedBefore") }
+        set { UserDefaults.standard.set(newValue, forKey: "hasLaunchedBefore") }
+    }
 
-    private init() {}
+    private init() {
+        // Default to true if key has never been set
+        if UserDefaults.standard.object(forKey: "launchAtLogin") == nil {
+            self.launchAtLogin = true
+        } else {
+            self.launchAtLogin = UserDefaults.standard.bool(forKey: "launchAtLogin")
+        }
+    }
 
     /// On first launch, register for login automatically.
     func registerIfFirstLaunch() {
