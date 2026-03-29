@@ -28,7 +28,7 @@ final class HistoryManager: ObservableObject {
 
         let panel = NSPanel(
             contentRect: NSRect(x: 0, y: 0, width: 360, height: 420),
-            styleMask: [.titled, .closable, .resizable, .nonactivatingPanel, .hudWindow],
+            styleMask: [.titled, .closable, .resizable, .nonactivatingPanel, .utilityWindow, .hudWindow],
             backing: .buffered,
             defer: false
         )
