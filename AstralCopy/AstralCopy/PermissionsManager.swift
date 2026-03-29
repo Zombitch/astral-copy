@@ -54,6 +54,7 @@ final class PermissionsManager: ObservableObject {
 
         window.contentView = hostingView
         window.title = NSLocalizedString("onboarding.title", comment: "")
+        window.isReleasedWhenClosed = false
         window.center()
         window.makeKeyAndOrderFront(nil)
 
