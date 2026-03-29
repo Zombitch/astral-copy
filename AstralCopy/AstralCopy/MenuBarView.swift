@@ -34,8 +34,11 @@ struct MenuBarView: View {
                     .padding()
             } else {
                 ScrollView {
-                    LazyVStack(spacing: 2) {
-                        ForEach(clipboard.history.prefix(10)) { item in
+                    LazyVStack(spacing: 0) {
+                        ForEach(Array(clipboard.history.prefix(10).enumerated()), id: \.element.id) { index, item in
+                            if index > 0 {
+                                Divider().padding(.horizontal, 4)
+                            }
                             menuRow(for: item)
                         }
                     }
