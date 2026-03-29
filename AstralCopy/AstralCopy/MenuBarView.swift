@@ -84,6 +84,7 @@ struct MenuBarView: View {
                     .onChange(of: selectedAppearanceMode) { newValue in
                         appSettings.appearanceMode = newValue
                     }
+                    Spacer()
                 }
 
                 Divider()
