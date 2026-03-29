@@ -2,7 +2,7 @@
 ```markdown
 # README.md
 
-# MultiPaste
+# Astral Copy
 
 **The macOS clipboard manager that turns Cmd+V into a history picker.**
 
@@ -10,7 +10,7 @@ Copy anything (text or images) as usual — then press **Cmd+V** to see your rec
 
 A clean, native menu-bar app built with SwiftUI. No bloat. No subscriptions.
 
-![Menu bar icon](https://github.com/yourusername/MultiPaste/raw/main/Assets/menu-bar.png)  
+![Menu bar icon](ttps://github.com/Zombitch/astral-copy/raw/main/Assets/menu-bar.png)  
 *(screenshot placeholder — replace with real app icon in repo)*
 
 ---
@@ -32,14 +32,7 @@ A clean, native menu-bar app built with SwiftUI. No bloat. No subscriptions.
 
 ### For users (pre-built version coming soon)
 
-1. Download the latest `.dmg` from [Releases](https://github.com/yourusername/MultiPaste/releases)
-2. Open MultiPaste
+1. Download the latest `.dmg`
+2. Open AstralCopy
 3. Follow the one-time onboarding to grant Accessibility + Input Monitoring
 4. That’s it — Cmd+V now shows your clipboard history everywhere!
-
-### For developers
-
-```bash
-git clone https://github.com/yourusername/MultiPaste.git
-cd MultiPaste
-open MultiPaste.xcodeproj
