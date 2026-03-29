@@ -66,10 +66,13 @@ struct OnboardingView: View {
     private func startPolling() {
         pollTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { _ in
             Task { @MainActor in
-                permissions.refreshStatus()
-                if permissions.allPermissionsGranted {
-                    EventTapManager.shared.install()
+                // Try the event tap directly — its success is the real proof
+                EventTapManager.shared.install()
+                if EventTapManager.shared.isActive {
+                    permissions.markAllGranted()
                     stopPolling()
+                } else {
+                    permissions.refreshStatus()
                 }
             }
         }
