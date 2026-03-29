@@ -7,6 +7,7 @@ struct MenuBarView: View {
     @ObservedObject private var historyManager = HistoryManager.shared
     @ObservedObject private var permissions = PermissionsManager.shared
     @ObservedObject private var appSettings = AppSettings.shared
+    @State private var selectedAppearanceMode: AppSettings.AppearanceMode = AppSettings.shared.appearanceMode
 
     var body: some View {
         VStack(spacing: 0) {
@@ -73,16 +74,16 @@ struct MenuBarView: View {
                     Text("menu.appearance")
                         .font(.caption)
                     Spacer()
-                    Picker("", selection: Binding(
-                        get: { appSettings.appearanceMode },
-                        set: { appSettings.appearanceMode = $0 }
-                    )) {
+                    Picker("", selection: $selectedAppearanceMode) {
                         ForEach(AppSettings.AppearanceMode.allCases, id: \.self) { mode in
                             Text(mode.localizedName).tag(mode)
                         }
                     }
                     .pickerStyle(.segmented)
                     .frame(width: 160)
+                    .onChange(of: selectedAppearanceMode) { newValue in
+                        appSettings.appearanceMode = newValue
+                    }
                 }
 
                 Divider()
