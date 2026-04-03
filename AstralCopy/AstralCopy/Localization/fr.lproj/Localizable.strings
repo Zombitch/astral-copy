@@ -25,6 +25,14 @@
 "menu.permission.granted" = "Accordé";
 "menu.permission.enable" = "Activer";
 
+/* About */
+"about.button" = "À propos";
+"about.studio" = "2026 © Lux Anima Studio";
+"about.intro" = "AstralCopy est une petite app macOS qui se loge discrètement dans votre barre des menus. En d'autres termes, c'est un filet de sécurité invisible pour tout ce que vous copiez, toujours à un raccourci de distance.";
+"about.feature.history" = "Mémorise tout ce que vous copiez — textes et images — jusqu'aux 50 derniers éléments, pour ne rien perdre.";
+"about.feature.shortcut" = "Appuyez sur Ctrl+V au lieu du traditionnel Cmd+V pour ouvrir un sélecteur affichant votre historique. Cliquez sur un élément pour le coller dans n'importe quelle app.";
+"about.feature.cmdv" = "Cmd+V fonctionne toujours normalement — rien ne change dans votre façon de travailler habituelle.";
+
 /* Settings */
 "settings.general" = "Général";
 "settings.launchAtLogin" = "Lancer au démarrage";

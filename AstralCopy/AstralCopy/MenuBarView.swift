@@ -8,6 +8,7 @@ struct MenuBarView: View {
     @ObservedObject private var permissions = PermissionsManager.shared
     @ObservedObject private var appSettings = AppSettings.shared
     @State private var selectedAppearanceMode: AppSettings.AppearanceMode = AppSettings.shared.appearanceMode
+    @State private var showingAbout = false
 
     var body: some View {
         VStack(spacing: 0) {
@@ -72,6 +73,9 @@ struct MenuBarView: View {
 
                 Divider()
 
+                Button("about.button") { showingAbout = true }
+                    .buttonStyle(.borderless)
+
                 Button("menu.quit") {
                     NSApplication.shared.terminate(nil)
                 }
@@ -81,6 +85,7 @@ struct MenuBarView: View {
             .padding(8)
         }
         .frame(width: 320)
+        .sheet(isPresented: $showingAbout) { AboutView() }
     }
 
     // MARK: - Helpers

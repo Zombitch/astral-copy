@@ -5,6 +5,7 @@ import SwiftUI
 struct OnboardingView: View {
     @ObservedObject private var permissions = PermissionsManager.shared
     @State private var pollTimer: Timer?
+    @State private var showingAbout = false
 
     var body: some View {
         VStack(spacing: 24) {
@@ -42,8 +43,12 @@ struct OnboardingView: View {
 
             Spacer()
 
-            // Done
+            // Footer
             HStack {
+                Button("about.button") { showingAbout = true }
+                    .buttonStyle(.borderless)
+                    .foregroundStyle(.secondary)
+
                 Spacer()
 
                 Button("onboarding.done") {
@@ -55,6 +60,7 @@ struct OnboardingView: View {
                 .buttonStyle(.borderedProminent)
                 .disabled(!permissions.allPermissionsGranted)
             }
+            .sheet(isPresented: $showingAbout) { AboutView() }
         }
         .padding(24)
         .frame(width: 480, height: 400)
