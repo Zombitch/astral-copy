@@ -5,9 +5,9 @@
 /* Onboarding */
 "onboarding.title" = "Willkommen bei AstralCopy";
 "onboarding.welcome" = "Willkommen bei AstralCopy";
-"onboarding.subtitle" = "AstralCopy benötigt zwei Berechtigungen, um Cmd+V zu überschreiben und den Zwischenablage-Verlauf anzuzeigen.";
+"onboarding.subtitle" = "AstralCopy benötigt zwei Berechtigungen, um Ctrl+V abzufangen und den Zwischenablage-Verlauf anzuzeigen.";
 "onboarding.accessibility" = "Bedienungshilfen";
-"onboarding.accessibility.description" = "Erforderlich, um Cmd+V abzufangen und das Einfügen zu simulieren.";
+"onboarding.accessibility.description" = "Erforderlich, um Ctrl+V abzufangen und das Einfügen zu simulieren.";
 "onboarding.inputMonitoring" = "Eingabeüberwachung";
 "onboarding.inputMonitoring.description" = "Erforderlich, um Tastenkombinationen global zu erkennen.";
 "onboarding.openSettings" = "Einstellungen öffnen";
@@ -20,7 +20,7 @@
 "menu.launchAtLogin" = "Beim Anmelden starten";
 "menu.compactMode" = "Kompaktmodus";
 "menu.appearance" = "Erscheinungsbild";
-"menu.fallbackMode" = "Nutzt Cmd+Umschalt+V (Berechtigungen für Cmd+V erteilen)";
+"menu.fallbackMode" = "Ctrl+V-Monitor aktiv (Berechtigungen für vollständige Abfangung erteilen)";
 "menu.quit" = "AstralCopy beenden";
 "menu.permission.granted" = "Erlaubt";
 "menu.permission.enable" = "Aktivieren";

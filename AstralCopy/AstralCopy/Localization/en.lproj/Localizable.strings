@@ -5,9 +5,9 @@
 /* Onboarding */
 "onboarding.title" = "Welcome to AstralCopy";
 "onboarding.welcome" = "Welcome to AstralCopy";
-"onboarding.subtitle" = "AstralCopy needs two permissions to override Cmd+V and show your clipboard history.";
+"onboarding.subtitle" = "AstralCopy needs two permissions to intercept Ctrl+V and show your clipboard history.";
 "onboarding.accessibility" = "Accessibility";
-"onboarding.accessibility.description" = "Required to intercept Cmd+V and simulate paste.";
+"onboarding.accessibility.description" = "Required to intercept Ctrl+V and simulate paste.";
 "onboarding.inputMonitoring" = "Input Monitoring";
 "onboarding.inputMonitoring.description" = "Required to detect keyboard shortcuts globally.";
 "onboarding.openSettings" = "Open Settings";
@@ -20,7 +20,7 @@
 "menu.launchAtLogin" = "Launch at Login";
 "menu.compactMode" = "Compact Mode";
 "menu.appearance" = "Appearance";
-"menu.fallbackMode" = "Using Cmd+Shift+V (grant permissions for Cmd+V)";
+"menu.fallbackMode" = "Using Ctrl+V monitor (grant permissions for full override)";
 "menu.quit" = "Quit AstralCopy";
 "menu.permission.granted" = "Granted";
 "menu.permission.enable" = "Enable";

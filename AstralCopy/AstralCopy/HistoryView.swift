@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// The clipboard history list shown when the user presses Cmd+V.
+/// The clipboard history list shown when the user presses Ctrl+V.
 struct HistoryView: View {
     @ObservedObject private var clipboard = ClipboardService.shared
     @ObservedObject private var historyManager = HistoryManager.shared

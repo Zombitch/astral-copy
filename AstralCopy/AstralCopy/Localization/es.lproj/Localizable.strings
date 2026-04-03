@@ -5,9 +5,9 @@
 /* Onboarding */
 "onboarding.title" = "Bienvenido a AstralCopy";
 "onboarding.welcome" = "Bienvenido a AstralCopy";
-"onboarding.subtitle" = "AstralCopy necesita dos permisos para reemplazar Cmd+V y mostrar el historial del portapapeles.";
+"onboarding.subtitle" = "AstralCopy necesita dos permisos para interceptar Ctrl+V y mostrar el historial del portapapeles.";
 "onboarding.accessibility" = "Accesibilidad";
-"onboarding.accessibility.description" = "Necesario para interceptar Cmd+V y simular el pegado.";
+"onboarding.accessibility.description" = "Necesario para interceptar Ctrl+V y simular el pegado.";
 "onboarding.inputMonitoring" = "Monitoreo de entrada";
 "onboarding.inputMonitoring.description" = "Necesario para detectar atajos de teclado globalmente.";
 "onboarding.openSettings" = "Abrir Ajustes";
@@ -20,7 +20,7 @@
 "menu.launchAtLogin" = "Iniciar al arrancar";
 "menu.compactMode" = "Modo compacto";
 "menu.appearance" = "Apariencia";
-"menu.fallbackMode" = "Usando Cmd+Mayús+V (conceda permisos para Cmd+V)";
+"menu.fallbackMode" = "Monitor Ctrl+V activo (conceda permisos para la interceptación completa)";
 "menu.quit" = "Salir de AstralCopy";
 "menu.permission.granted" = "Concedido";
 "menu.permission.enable" = "Activar";

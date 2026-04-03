@@ -1,8 +1,8 @@
 import AppKit
 import Carbon.HIToolbox
 
-/// Installs a CGEvent tap to intercept Cmd+V and show the clipboard history instead.
-/// Falls back to Cmd+Shift+V via NSEvent global monitor if the event tap can't be created.
+/// Installs a CGEvent tap to intercept Ctrl+V and show the clipboard history instead.
+/// Falls back to Ctrl+V via NSEvent global monitor if the event tap can't be created.
 @MainActor
 final class EventTapManager {
     static let shared = EventTapManager()
@@ -11,10 +11,10 @@ final class EventTapManager {
     private var runLoopSource: CFRunLoopSource?
     private var fallbackMonitor: Any?
 
-    /// Whether the Cmd+V override is currently active
+    /// Whether the Ctrl+V override is currently active
     var isActive: Bool { eventTap != nil }
 
-    /// Whether we're using the fallback hotkey (Cmd+Shift+V) instead of Cmd+V override
+    /// Whether we're using the fallback hotkey (Ctrl+V monitor) instead of the full event tap
     var isFallbackMode: Bool { fallbackMonitor != nil && eventTap == nil }
 
     private init() {}
@@ -37,7 +37,7 @@ final class EventTapManager {
         )
 
         guard let tap else {
-            print("[EventTapManager] Event tap failed — falling back to Cmd+Shift+V")
+            print("[EventTapManager] Event tap failed — falling back to Ctrl+V monitor")
             installFallback()
             return
         }
@@ -73,7 +73,7 @@ final class EventTapManager {
         CGEvent.tapEnable(tap: tap, enable: true)
     }
 
-    /// Simulate a real Cmd+V so the frontmost app receives the paste.
+    /// Simulate a real Cmd+V so the frontmost app receives the standard system paste.
     func simulatePaste() {
         // Temporarily disable our tap so we don't intercept our own simulated paste
         if let tap = eventTap {
@@ -104,18 +104,19 @@ final class EventTapManager {
 
     // MARK: - Fallback (Cmd+Shift+V)
 
-    /// Registers a global key monitor for Cmd+Shift+V when the event tap isn't available.
-    /// This doesn't block Cmd+V — it uses a different shortcut as a graceful alternative.
+    /// Registers a global key monitor for Ctrl+V when the event tap isn't available.
+    /// This can't block the event (NSEvent monitor is passive), but Ctrl+V has no system default
+    /// paste behaviour on macOS, so the history picker still appears without side effects.
     private func installFallback() {
         guard fallbackMonitor == nil else { return }
         fallbackMonitor = NSEvent.addGlobalMonitorForEvents(matching: .keyDown) { event in
             let isV = event.keyCode == UInt16(kVK_ANSI_V)
-            let hasCmd = event.modifierFlags.contains(.command)
-            let hasShift = event.modifierFlags.contains(.shift)
-            let noCtrl = !event.modifierFlags.contains(.control)
+            let hasCtrl = event.modifierFlags.contains(.control)
+            let noCmd = !event.modifierFlags.contains(.command)
+            let noShift = !event.modifierFlags.contains(.shift)
             let noOpt = !event.modifierFlags.contains(.option)
 
-            if isV && hasCmd && hasShift && noCtrl && noOpt {
+            if isV && hasCtrl && noCmd && noShift && noOpt {
                 DispatchQueue.main.async {
                     HistoryManager.shared.showHistory()
                 }
@@ -154,18 +155,19 @@ private func eventTapCallback(
     let keyCode = event.getIntegerValueField(.keyboardEventKeycode)
     let flags = event.flags
 
-    // Cmd+V: keyCode 9 with Command modifier, without other modifiers (Shift/Ctrl/Option)
-    let isCommandOnly = flags.contains(.maskCommand)
+    // Ctrl+V: keyCode 9 with Control modifier only (no Cmd/Shift/Option).
+    // Cmd+V is intentionally left untouched so standard paste continues to work normally.
+    let isControlOnly = flags.contains(.maskControl)
+        && !flags.contains(.maskCommand)
         && !flags.contains(.maskShift)
-        && !flags.contains(.maskControl)
         && !flags.contains(.maskAlternate)
 
-    if keyCode == kVK_ANSI_V && isCommandOnly {
+    if keyCode == kVK_ANSI_V && isControlOnly {
         // Show the history picker on the main thread
         DispatchQueue.main.async {
             HistoryManager.shared.showHistory()
         }
-        // Block the original Cmd+V
+        // Block the original Ctrl+V so it doesn't propagate
         return nil
     }
 
