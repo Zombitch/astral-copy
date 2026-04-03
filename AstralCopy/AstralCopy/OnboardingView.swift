@@ -33,12 +33,12 @@ struct OnboardingView: View {
                     action: permissions.openAccessibilitySettings
                 )
 
-                permissionRow(
+                /*permissionRow(
                     title: String(localized: "onboarding.inputMonitoring"),
                     description: String(localized: "onboarding.inputMonitoring.description"),
                     granted: permissions.inputMonitoringGranted,
                     action: permissions.openInputMonitoringSettings
-                )
+                )*/
             }
 
             Spacer()

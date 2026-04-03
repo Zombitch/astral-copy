@@ -53,11 +53,11 @@ struct MenuBarView: View {
                     granted: permissions.accessibilityGranted,
                     action: permissions.openAccessibilitySettings
                 )
-                permissionStatusRow(
+                /*permissionStatusRow(
                     label: String(localized: "settings.inputMonitoring"),
                     granted: permissions.inputMonitoringGranted,
                     action: permissions.openInputMonitoringSettings
-                )
+                )*/
 
                 // Fallback mode indicator
                 if EventTapManager.shared.isFallbackMode {

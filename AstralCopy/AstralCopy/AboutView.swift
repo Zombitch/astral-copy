@@ -46,7 +46,6 @@ struct AboutView: View {
             }
         }
         .padding(24)
-        .frame(width: 400, height: 360)
     }
 
     private func featureRow(symbol: String, text: LocalizedStringKey) -> some View {
