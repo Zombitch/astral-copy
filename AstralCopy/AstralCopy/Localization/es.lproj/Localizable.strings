@@ -1,0 +1,42 @@
+/* History */
+"history.title" = "Historial del portapapeles";
+"history.empty" = "No hay elementos copiados";
+
+/* Onboarding */
+"onboarding.title" = "Bienvenido a AstralCopy";
+"onboarding.welcome" = "Bienvenido a AstralCopy";
+"onboarding.subtitle" = "AstralCopy necesita dos permisos para reemplazar Cmd+V y mostrar el historial del portapapeles.";
+"onboarding.accessibility" = "Accesibilidad";
+"onboarding.accessibility.description" = "Necesario para interceptar Cmd+V y simular el pegado.";
+"onboarding.inputMonitoring" = "Monitoreo de entrada";
+"onboarding.inputMonitoring.description" = "Necesario para detectar atajos de teclado globalmente.";
+"onboarding.openSettings" = "Abrir Ajustes";
+"onboarding.done" = "Listo";
+
+/* Menu Bar */
+"menu.recentItems" = "Elementos recientes";
+"menu.clearAll" = "Borrar todo";
+"menu.showAll" = "Mostrar todo el historial";
+"menu.launchAtLogin" = "Iniciar al arrancar";
+"menu.compactMode" = "Modo compacto";
+"menu.appearance" = "Apariencia";
+"menu.fallbackMode" = "Usando Cmd+Mayús+V (conceda permisos para Cmd+V)";
+"menu.quit" = "Salir de AstralCopy";
+"menu.permission.granted" = "Concedido";
+"menu.permission.enable" = "Activar";
+
+/* Settings */
+"settings.general" = "General";
+"settings.launchAtLogin" = "Iniciar al arrancar";
+"settings.compactMode" = "Modo compacto";
+"settings.appearance" = "Apariencia";
+"settings.appearance.system" = "Sistema";
+"settings.appearance.light" = "Claro";
+"settings.appearance.dark" = "Oscuro";
+"settings.permissions" = "Permisos";
+"settings.accessibility" = "Accesibilidad";
+"settings.inputMonitoring" = "Monitoreo de entrada";
+"settings.grant" = "Conceder";
+"settings.refreshPermissions" = "Actualizar permisos";
+"settings.about" = "Acerca de";
+"settings.version" = "Versión";

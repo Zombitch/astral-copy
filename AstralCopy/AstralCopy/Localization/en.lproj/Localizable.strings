@@ -1,0 +1,42 @@
+/* History */
+"history.title" = "Clipboard History";
+"history.empty" = "No items copied yet";
+
+/* Onboarding */
+"onboarding.title" = "Welcome to AstralCopy";
+"onboarding.welcome" = "Welcome to AstralCopy";
+"onboarding.subtitle" = "AstralCopy needs two permissions to override Cmd+V and show your clipboard history.";
+"onboarding.accessibility" = "Accessibility";
+"onboarding.accessibility.description" = "Required to intercept Cmd+V and simulate paste.";
+"onboarding.inputMonitoring" = "Input Monitoring";
+"onboarding.inputMonitoring.description" = "Required to detect keyboard shortcuts globally.";
+"onboarding.openSettings" = "Open Settings";
+"onboarding.done" = "Done";
+
+/* Menu Bar */
+"menu.recentItems" = "Recent Items";
+"menu.clearAll" = "Clear All";
+"menu.showAll" = "Show All History";
+"menu.launchAtLogin" = "Launch at Login";
+"menu.compactMode" = "Compact Mode";
+"menu.appearance" = "Appearance";
+"menu.fallbackMode" = "Using Cmd+Shift+V (grant permissions for Cmd+V)";
+"menu.quit" = "Quit AstralCopy";
+"menu.permission.granted" = "Granted";
+"menu.permission.enable" = "Enable";
+
+/* Settings */
+"settings.general" = "General";
+"settings.launchAtLogin" = "Launch at Login";
+"settings.compactMode" = "Compact Mode";
+"settings.appearance" = "Appearance";
+"settings.appearance.system" = "System";
+"settings.appearance.light" = "Light";
+"settings.appearance.dark" = "Dark";
+"settings.permissions" = "Permissions";
+"settings.accessibility" = "Accessibility";
+"settings.inputMonitoring" = "Input Monitoring";
+"settings.grant" = "Grant";
+"settings.refreshPermissions" = "Refresh Permissions";
+"settings.about" = "About";
+"settings.version" = "Version";
