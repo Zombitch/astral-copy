@@ -12,7 +12,7 @@ struct OnboardingView: View {
             VStack(spacing: 8) {
                 Image(nsImage: NSImage(named: "AppIcon") ?? NSImage())
                     .resizable()
-                    .frame(width: 64, height: 64)
+                    .frame(width: 128, height: 128)
                 Text("onboarding.welcome")
                     .font(.title.bold())
                 Text("onboarding.subtitle")
