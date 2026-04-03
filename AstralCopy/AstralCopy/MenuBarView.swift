@@ -11,64 +11,20 @@ struct MenuBarView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            // Recent items header
-            HStack {
-                Text("menu.recentItems")
-                    .font(.headline)
-                Spacer()
-                if !clipboard.history.isEmpty {
-                    Button("menu.clearAll") {
-                        clipboard.clearHistory()
-                    }
-                    .buttonStyle(.borderless)
-                    .font(.caption)
-                }
-            }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 8)
-
-            Divider()
-
-            // Quick list of last 10 items
-            if clipboard.history.isEmpty {
-                Text("history.empty")
-                    .foregroundStyle(.secondary)
-                    .padding()
-            } else {
-                ScrollView {
-                    LazyVStack(spacing: 0) {
-                        ForEach(Array(clipboard.history.prefix(10).enumerated()), id: \.element.id) { index, item in
-                            if index > 0 {
-                                Divider().padding(.horizontal, 4)
-                            }
-                            menuRow(for: item)
-                        }
-                    }
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 4)
-                }
-                .frame(maxHeight: 300)
-            }
-
-            Divider()
-
             // Footer actions
             VStack(spacing: 4) {
-                Button {
-                    historyManager.showHistory()
-                } label: {
-                    Label("menu.showAll", systemImage: "list.clipboard")
-                }
-                .buttonStyle(.borderless)
-
+                
+                Spacer()
                 Toggle("menu.launchAtLogin", isOn: $launchSettings.launchAtLogin)
                     .toggleStyle(.switch)
                     .controlSize(.small)
-
+                
+                Spacer()
                 Toggle("menu.compactMode", isOn: $appSettings.compactMode)
                     .toggleStyle(.switch)
                     .controlSize(.small)
-
+                
+                Spacer()
                 // Appearance picker
                 HStack {
                     Text("menu.appearance")
@@ -87,6 +43,7 @@ struct MenuBarView: View {
                     Spacer()
                 }
 
+                Spacer()
                 Divider()
 
                 // Permissions status
