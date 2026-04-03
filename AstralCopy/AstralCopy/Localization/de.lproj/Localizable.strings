@@ -28,7 +28,7 @@
 /* About */
 "about.button" = "Info";
 "about.studio" = "2026 © Lux Anima Studio";
-"about.intro" = "AstralCopy ist eine kleine macOS-App, die sich still in Ihrer Menüleiste einrichtet. Kurz gesagt: ein unsichtbares Sicherheitsnetz für alles, was Sie kopieren – immer nur einen Shortcut entfernt.";
+"about.intro" = "AstralCopy ist eine macOS-App, die sich still in Ihrer Menüleiste einrichtet – für alles, was Sie kopieren, immer nur einen Shortcut entfernt. Wir haben diese App entwickelt, um uns beim Erstellen und Entwickeln von Spielen zu unterstützen. Wir stellen sie kostenlos zur Verfügung, um anderen wie uns zu helfen, die ein einfaches Multi-Copy/Paste-Tool suchen.";
 "about.feature.history" = "Merkt sich alles, was Sie kopieren – Texte und Bilder – bis zu den letzten 50 Einträgen, damit nichts verloren geht.";
 "about.feature.shortcut" = "Drücken Sie Ctrl+V statt des üblichen Cmd+V, um eine Auswahlliste mit Ihrem Kopierverlauf zu öffnen. Tippen Sie auf einen Eintrag, um ihn in jede App einzufügen.";
 "about.feature.cmdv" = "Cmd+V funktioniert weiterhin ganz normal – Ihr gewohnter Arbeitsablauf bleibt unverändert.";
