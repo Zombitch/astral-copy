@@ -10,6 +10,7 @@ final class HistoryManager: ObservableObject {
 
     private var panel: NSPanel?
     private var closeObserver: NSObjectProtocol?
+    private var clickOutsideMonitor: Any?
 
     private init() {}
 
@@ -50,7 +51,20 @@ final class HistoryManager: ObservableObject {
         panel.makeKeyAndOrderFront(nil)
         self.panel = panel
 
-        // Stay in sync if the user closes the panel via the close button or clicking away
+        // Dismiss when the user clicks outside the panel
+        clickOutsideMonitor = NSEvent.addGlobalMonitorForEvents(matching: [.leftMouseDown, .rightMouseDown]) { [weak self] event in
+            guard let self, let panel = self.panel else { return }
+            // Convert the click location to the panel's coordinate space and check containment
+            let clickLocation = event.locationInWindow
+            let screenLocation = event.window?.convertPoint(toScreen: clickLocation) ?? NSEvent.mouseLocation
+            if !panel.frame.contains(screenLocation) {
+                Task { @MainActor in
+                    self.dismissHistory()
+                }
+            }
+        }
+
+        // Stay in sync if the user closes the panel via the close button
         closeObserver = NotificationCenter.default.addObserver(
             forName: NSWindow.willCloseNotification,
             object: panel,
@@ -71,6 +85,10 @@ final class HistoryManager: ObservableObject {
         if let obs = closeObserver {
             NotificationCenter.default.removeObserver(obs)
             closeObserver = nil
+        }
+        if let monitor = clickOutsideMonitor {
+            NSEvent.removeMonitor(monitor)
+            clickOutsideMonitor = nil
         }
         panel?.close()
         panel = nil
