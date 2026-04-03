@@ -3,6 +3,8 @@ import SwiftUI
 
 /// Displays app information, description and studio credits.
 struct AboutView: View {
+    @Environment(\.dismiss) private var dismiss
+
     var body: some View {
         VStack(spacing: 20) {
             // Icon + title
@@ -36,6 +38,12 @@ struct AboutView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
 
             Spacer()
+
+            HStack {
+                Spacer()
+                Button("onboarding.done") { dismiss() }
+                    .buttonStyle(.borderedProminent)
+            }
         }
         .padding(24)
         .frame(width: 400, height: 360)
