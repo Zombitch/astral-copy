@@ -1,3 +1,4 @@
+import AppKit
 import SwiftUI
 
 /// First-launch onboarding that guides the user through granting permissions.
@@ -9,9 +10,9 @@ struct OnboardingView: View {
         VStack(spacing: 24) {
             // Header
             VStack(spacing: 8) {
-                Image(systemName: "doc.on.clipboard.fill")
-                    .font(.system(size: 48))
-                    .foregroundStyle(Color.accentColor)
+                Image(nsImage: NSImage(named: "AppIcon") ?? NSImage())
+                    .resizable()
+                    .frame(width: 64, height: 64)
                 Text("onboarding.welcome")
                     .font(.title.bold())
                 Text("onboarding.subtitle")
