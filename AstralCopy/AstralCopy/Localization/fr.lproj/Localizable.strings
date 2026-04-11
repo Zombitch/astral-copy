@@ -12,6 +12,8 @@
 "onboarding.inputMonitoring.description" = "Nécessaire pour détecter les raccourcis clavier globalement.";
 "onboarding.openSettings" = "Ouvrir les réglages";
 "onboarding.done" = "Terminé";
+"onboarding.launchAtLogin" = "Lancer au démarrage";
+"onboarding.launchAtLogin.description" = "Démarrer AstralCopy automatiquement à l'ouverture de session.";
 
 /* Menu Bar */
 "menu.recentItems" = "Éléments récents";

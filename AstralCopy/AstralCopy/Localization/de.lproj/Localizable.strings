@@ -12,6 +12,8 @@
 "onboarding.inputMonitoring.description" = "Erforderlich, um Tastenkombinationen global zu erkennen.";
 "onboarding.openSettings" = "Einstellungen öffnen";
 "onboarding.done" = "Fertig";
+"onboarding.launchAtLogin" = "Beim Anmelden starten";
+"onboarding.launchAtLogin.description" = "AstralCopy beim Anmelden automatisch starten.";
 
 /* Menu Bar */
 "menu.recentItems" = "Letzte Elemente";

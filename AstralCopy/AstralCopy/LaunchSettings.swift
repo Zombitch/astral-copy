@@ -19,20 +19,19 @@ final class LaunchSettings: ObservableObject {
     }
 
     private init() {
-        // Default to true if key has never been set
+        // Default to false if key has never been set — user opts in via onboarding
         if UserDefaults.standard.object(forKey: "launchAtLogin") == nil {
-            self.launchAtLogin = true
+            self.launchAtLogin = false
         } else {
             self.launchAtLogin = UserDefaults.standard.bool(forKey: "launchAtLogin")
         }
     }
 
-    /// On first launch, register for login automatically.
+    /// On first launch, simply mark as seen — launch-at-login stays at its default (off).
     func registerIfFirstLaunch() {
         guard !hasLaunchedBefore else { return }
         hasLaunchedBefore = true
-        launchAtLogin = true
-        updateRegistration()
+        // Don't auto-enable; the user chooses during onboarding
     }
 
     func updateRegistration() {

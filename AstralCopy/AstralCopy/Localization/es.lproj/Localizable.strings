@@ -12,6 +12,8 @@
 "onboarding.inputMonitoring.description" = "Necesario para detectar atajos de teclado globalmente.";
 "onboarding.openSettings" = "Abrir Ajustes";
 "onboarding.done" = "Listo";
+"onboarding.launchAtLogin" = "Iniciar al arrancar";
+"onboarding.launchAtLogin.description" = "Inicia AstralCopy automáticamente al iniciar sesión.";
 
 /* Menu Bar */
 "menu.recentItems" = "Elementos recientes";

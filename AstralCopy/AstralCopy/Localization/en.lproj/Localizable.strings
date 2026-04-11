@@ -12,6 +12,8 @@
 "onboarding.inputMonitoring.description" = "Required to detect keyboard shortcuts globally.";
 "onboarding.openSettings" = "Open Settings";
 "onboarding.done" = "Done";
+"onboarding.launchAtLogin" = "Launch at Login";
+"onboarding.launchAtLogin.description" = "Start AstralCopy automatically when you log in.";
 
 /* Menu Bar */
 "menu.recentItems" = "Recent Items";

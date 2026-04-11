@@ -4,6 +4,7 @@ import SwiftUI
 /// First-launch onboarding that guides the user through granting permissions.
 struct OnboardingView: View {
     @ObservedObject private var permissions = PermissionsManager.shared
+    @ObservedObject private var launchSettings = LaunchSettings.shared
     @State private var pollTimer: Timer?
     @State private var showingAbout = false
 
@@ -41,6 +42,11 @@ struct OnboardingView: View {
                 )*/
             }
 
+            Divider()
+
+            // Launch at Login toggle
+            launchToggleRow()
+
             Spacer()
 
             // Footer
@@ -63,7 +69,7 @@ struct OnboardingView: View {
             .sheet(isPresented: $showingAbout) { AboutView() }
         }
         .padding(24)
-        .frame(width: 480, height: 400)
+        .frame(width: 480, height: 480)
         .onAppear { startPolling() }
         .onDisappear { stopPolling() }
     }
@@ -91,6 +97,49 @@ struct OnboardingView: View {
     }
 
     // MARK: - Helpers
+
+    private func launchToggleRow() -> some View {
+        HStack(spacing: 14) {
+            // Gradient icon — mirrors the iOS Settings aesthetic while staying on-brand
+            ZStack {
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(
+                        LinearGradient(
+                            colors: [Color.accentColor, Color.purple],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
+                    .frame(width: 44, height: 44)
+                Image(systemName: "power.circle.fill")
+                    .font(.title2)
+                    .foregroundStyle(.white)
+            }
+
+            VStack(alignment: .leading, spacing: 2) {
+                Text(String(localized: "onboarding.launchAtLogin"))
+                    .font(.headline)
+                Text(String(localized: "onboarding.launchAtLogin.description"))
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+
+            Spacer()
+
+            Toggle("", isOn: $launchSettings.launchAtLogin)
+                .toggleStyle(.switch)
+                .labelsHidden()
+        }
+        .padding(14)
+        .background(
+            RoundedRectangle(cornerRadius: 14)
+                .fill(Color.accentColor.opacity(0.07))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 14)
+                        .strokeBorder(Color.accentColor.opacity(0.25), lineWidth: 1)
+                )
+        )
+    }
 
     private func permissionRow(
         title: String,
