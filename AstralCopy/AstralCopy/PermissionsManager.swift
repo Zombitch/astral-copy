@@ -14,6 +14,9 @@ final class PermissionsManager: ObservableObject {
     }
 
     private var onboardingWindow: NSWindow?
+    // Keeps the window alive and re-raises it whenever our app regains focus
+    // (e.g. after the user closes System Settings).
+    private var appActiveObserver: Any?
 
     private init() {
         refreshStatus()
@@ -55,6 +58,9 @@ final class PermissionsManager: ObservableObject {
         window.contentView = hostingView
         window.title = NSLocalizedString("onboarding.title", comment: "")
         window.isReleasedWhenClosed = false
+        // Prevent macOS from hiding the window when another app (e.g. System Settings)
+        // becomes the foreground application — default for .accessory apps is to hide.
+        window.hidesOnDeactivate = false
         window.center()
         window.makeKeyAndOrderFront(nil)
 
@@ -62,9 +68,23 @@ final class PermissionsManager: ObservableObject {
         NSApp.activate(ignoringOtherApps: true)
 
         onboardingWindow = window
+
+        // Re-raise the onboarding whenever our app regains focus (e.g. user closes
+        // System Settings and macOS returns control to us).
+        appActiveObserver = NotificationCenter.default.addObserver(
+            forName: NSApplication.didBecomeActiveNotification,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            self?.onboardingWindow?.makeKeyAndOrderFront(nil)
+        }
     }
 
     func dismissOnboarding() {
+        if let observer = appActiveObserver {
+            NotificationCenter.default.removeObserver(observer)
+            appActiveObserver = nil
+        }
         onboardingWindow?.close()
         onboardingWindow = nil
     }
