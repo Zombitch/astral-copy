@@ -69,22 +69,28 @@ final class PermissionsManager: ObservableObject {
 
         onboardingWindow = window
 
-        // Re-raise the onboarding whenever our app regains focus (e.g. user closes
-        // System Settings and macOS returns control to us).
-        appActiveObserver = NotificationCenter.default.addObserver(
-            forName: NSApplication.didBecomeActiveNotification,
+        // didBecomeActiveNotification never fires when System Settings closes because
+        // macOS activates Finder (not us). Watch for System Settings losing focus via
+        // NSWorkspace instead, then forcibly re-raise the onboarding window.
+        appActiveObserver = NSWorkspace.shared.notificationCenter.addObserver(
+            forName: NSWorkspace.didDeactivateApplicationNotification,
             object: nil,
             queue: .main
-        ) { [weak self] _ in
-            Task { @MainActor in
+        ) { [weak self] notification in
+            guard
+                let app = notification.userInfo?[NSWorkspace.applicationUserInfoKey] as? NSRunningApplication,
+                app.bundleIdentifier == "com.apple.systempreferences"
+            else { return }
+            Task { @MainActor [weak self] in
                 self?.onboardingWindow?.makeKeyAndOrderFront(nil)
+                NSApp.activate(ignoringOtherApps: true)
             }
         }
     }
 
     func dismissOnboarding() {
         if let observer = appActiveObserver {
-            NotificationCenter.default.removeObserver(observer)
+            NSWorkspace.shared.notificationCenter.removeObserver(observer)
             appActiveObserver = nil
         }
         onboardingWindow?.close()
