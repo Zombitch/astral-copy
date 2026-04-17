@@ -76,7 +76,9 @@ final class PermissionsManager: ObservableObject {
             object: nil,
             queue: .main
         ) { [weak self] _ in
-            self?.onboardingWindow?.makeKeyAndOrderFront(nil)
+            Task { @MainActor in
+                self?.onboardingWindow?.makeKeyAndOrderFront(nil)
+            }
         }
     }
 
