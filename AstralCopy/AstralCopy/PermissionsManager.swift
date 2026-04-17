@@ -64,8 +64,10 @@ final class PermissionsManager: ObservableObject {
         window.center()
         window.makeKeyAndOrderFront(nil)
 
-        // Bring our app to front for the onboarding
-        NSApp.activate(ignoringOtherApps: true)
+        // Use ignoringOtherApps: false so any system permission dialog (e.g. the
+        // macOS Accessibility prompt triggered by CGEvent.tapCreate) that is already
+        // visible stays in front of our onboarding window.
+        NSApp.activate(ignoringOtherApps: false)
 
         onboardingWindow = window
 
