@@ -5,15 +5,14 @@
 /* Onboarding */
 "onboarding.title" = "Bienvenido a AstralCopy";
 "onboarding.welcome" = "Bienvenido a AstralCopy";
-"onboarding.subtitle" = "AstralCopy necesita dos permisos para interceptar Ctrl+V y mostrar el historial del portapapeles.";
-"onboarding.accessibility" = "Accesibilidad";
-"onboarding.accessibility.description" = "Necesario para interceptar Ctrl+V y simular el pegado.";
-"onboarding.inputMonitoring" = "Monitoreo de entrada";
-"onboarding.inputMonitoring.description" = "Necesario para detectar atajos de teclado globalmente.";
-"onboarding.openSettings" = "Abrir Ajustes";
-"onboarding.done" = "Listo";
+"onboarding.subtitle" = "Tu historial del portapapeles, siempre a un atajo de distancia — sin configuración.";
+"onboarding.hotkey.title" = "Atajo global";
+"onboarding.hotkey.description" = "Pulsa ⌘⇧V desde cualquier app para abrir tu historial del portapapeles.";
+"onboarding.menubar.title" = "Acceso desde la barra de menús";
+"onboarding.menubar.description" = "Haz clic en el icono de la barra de menús para explorar tu historial en cualquier momento.";
 "onboarding.launchAtLogin" = "Iniciar al arrancar";
 "onboarding.launchAtLogin.description" = "Inicia AstralCopy automáticamente al iniciar sesión.";
+"onboarding.done" = "Empezar";
 
 /* Menu Bar */
 "menu.recentItems" = "Elementos recientes";
@@ -22,18 +21,15 @@
 "menu.launchAtLogin" = "Iniciar al arrancar";
 "menu.compactMode" = "Modo compacto";
 "menu.appearance" = "Apariencia";
-"menu.fallbackMode" = "Monitor Ctrl+V activo (conceda permisos para la interceptación completa)";
 "menu.quit" = "Salir de AstralCopy";
-"menu.permission.granted" = "Concedido";
-"menu.permission.enable" = "Activar";
 
 /* About */
 "about.button" = "Acerca de";
 "about.studio" = "2026 © Lux Anima Studio";
 "about.intro" = "AstralCopy es una app de macOS que vive discretamente en su barra de menús para todo lo que copia, siempre a un atajo de distancia. Desarrollamos esta app para ayudarnos mientras creamos y desarrollamos videojuegos. La distribuimos de forma gratuita para ayudar a otras personas como nosotros que buscan una herramienta simple de copiar/pegar múltiple.";
 "about.feature.history" = "Recuerda todo lo que copia — texto e imágenes — hasta los últimos 50 elementos, para que nada se pierda.";
-"about.feature.shortcut" = "Pulse Ctrl+V en lugar del habitual Cmd+V para abrir un panel con su historial de copias. Haga clic en cualquier elemento para pegarlo en la app que esté usando.";
-"about.feature.cmdv" = "Cmd+V sigue funcionando exactamente igual — nada de su flujo de trabajo habitual se ve afectado.";
+"about.feature.shortcut" = "Pulse ⌘⇧V desde cualquier app para abrir su historial. Seleccione un elemento para copiarlo y luego pegue normalmente con Cmd+V.";
+"about.feature.cmdv" = "Su Cmd+V habitual sigue funcionando exactamente igual — nada de su flujo de trabajo se ve afectado.";
 
 /* Settings */
 "settings.general" = "General";
@@ -43,10 +39,5 @@
 "settings.appearance.system" = "Sistema";
 "settings.appearance.light" = "Claro";
 "settings.appearance.dark" = "Oscuro";
-"settings.permissions" = "Permisos";
-"settings.accessibility" = "Accesibilidad";
-"settings.inputMonitoring" = "Monitoreo de entrada";
-"settings.grant" = "Conceder";
-"settings.refreshPermissions" = "Actualizar permisos";
 "settings.about" = "Acerca de";
 "settings.version" = "Versión";

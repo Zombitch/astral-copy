@@ -96,13 +96,9 @@ final class HistoryManager: ObservableObject {
     }
 
     /// Called when the user selects an item from the history list.
+    /// Writes the item to the clipboard; the user pastes with Cmd+V in their target app.
     func pasteItem(_ item: ClipboardItem) {
         ClipboardService.shared.select(item)
         dismissHistory()
-
-        // Small delay to let the pasteboard update before simulating paste
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-            EventTapManager.shared.simulatePaste()
-        }
     }
 }

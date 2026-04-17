@@ -30,34 +30,23 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         // Apply saved appearance preference
         AppSettings.shared.applyAppearance()
 
-        // Start clipboard monitoring
+        // Start clipboard monitoring (uses NSPasteboard, no permissions needed)
         ClipboardService.shared.startMonitoring()
 
-        // AXIsProcessTrusted() is a silent check — never shows a system dialog.
-        // We only attempt CGEvent.tapCreate (which CAN trigger a permission popup)
-        // when we already know we have permission, so the popup never races our
-        // onboarding window.
-        if AXIsProcessTrusted() {
-            EventTapManager.shared.install()
-            if EventTapManager.shared.isActive {
-                PermissionsManager.shared.markAllGranted()
-            } else {
-                // Permission is granted but tap still failed (e.g. after a macOS update).
-                // Show onboarding so the user can re-grant or see the fallback status.
-                PermissionsManager.shared.showOnboarding()
-            }
-        } else {
-            // No permission yet — go straight to onboarding.
-            // The onboarding's polling timer will call install() after the user
-            // grants access in System Settings, avoiding any launch-time dialog.
-            PermissionsManager.shared.showOnboarding()
-        }
+        // Register the global ⌘⇧V hotkey (Carbon API, no permissions needed)
+        HotkeyManager.shared.register()
 
         // Register launch-at-login if first run
         LaunchSettings.shared.registerIfFirstLaunch()
+
+        // Show a one-time welcome screen explaining the hotkey
+        if !UserDefaults.standard.bool(forKey: "hasSeenWelcome") {
+            UserDefaults.standard.set(true, forKey: "hasSeenWelcome")
+            PermissionsManager.shared.showOnboarding()
+        }
     }
 
     func applicationWillTerminate(_ notification: Notification) {
-        EventTapManager.shared.uninstall()
+        HotkeyManager.shared.unregister()
     }
 }
