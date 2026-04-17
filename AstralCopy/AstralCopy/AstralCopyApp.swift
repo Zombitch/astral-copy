@@ -39,11 +39,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         if EventTapManager.shared.isActive {
             // Tap succeeded — permissions are definitely granted
             PermissionsManager.shared.markAllGranted()
-        } else if EventTapManager.shared.isFallbackMode {
-            // Fallback active — show onboarding so user can grant full permissions
-            PermissionsManager.shared.showOnboarding()
         } else {
-            PermissionsManager.shared.showOnboarding()
+            // Delay onboarding so any system permission dialog triggered by the
+            // CGEvent tap or global key monitor attempt appears in the foreground first.
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                if !EventTapManager.shared.isActive {
+                    PermissionsManager.shared.showOnboarding()
+                }
+            }
         }
 
         // Register launch-at-login if first run
