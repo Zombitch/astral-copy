@@ -33,20 +33,24 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         // Start clipboard monitoring
         ClipboardService.shared.startMonitoring()
 
-        // Try installing the event tap — its success is the real proof of permissions
-        EventTapManager.shared.install()
-
-        if EventTapManager.shared.isActive {
-            // Tap succeeded — permissions are definitely granted
-            PermissionsManager.shared.markAllGranted()
-        } else {
-            // Delay onboarding so any system permission dialog triggered by the
-            // CGEvent tap or global key monitor attempt appears in the foreground first.
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                if !EventTapManager.shared.isActive {
-                    PermissionsManager.shared.showOnboarding()
-                }
+        // AXIsProcessTrusted() is a silent check — never shows a system dialog.
+        // We only attempt CGEvent.tapCreate (which CAN trigger a permission popup)
+        // when we already know we have permission, so the popup never races our
+        // onboarding window.
+        if AXIsProcessTrusted() {
+            EventTapManager.shared.install()
+            if EventTapManager.shared.isActive {
+                PermissionsManager.shared.markAllGranted()
+            } else {
+                // Permission is granted but tap still failed (e.g. after a macOS update).
+                // Show onboarding so the user can re-grant or see the fallback status.
+                PermissionsManager.shared.showOnboarding()
             }
+        } else {
+            // No permission yet — go straight to onboarding.
+            // The onboarding's polling timer will call install() after the user
+            // grants access in System Settings, avoiding any launch-time dialog.
+            PermissionsManager.shared.showOnboarding()
         }
 
         // Register launch-at-login if first run

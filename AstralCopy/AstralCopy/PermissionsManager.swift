@@ -62,10 +62,8 @@ final class PermissionsManager: ObservableObject {
         // becomes the foreground application — default for .accessory apps is to hide.
         window.hidesOnDeactivate = false
         window.center()
-        // makeKeyAndOrderFront is enough to show the window. We deliberately avoid
-        // NSApp.activate here so that any system permission dialog already on screen
-        // (triggered by CGEvent.tapCreate or the global key monitor) stays in front.
         window.makeKeyAndOrderFront(nil)
+        NSApp.activate(ignoringOtherApps: true)
 
         onboardingWindow = window
 
