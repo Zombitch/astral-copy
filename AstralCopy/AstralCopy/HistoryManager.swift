@@ -1,7 +1,7 @@
 import AppKit
 import SwiftUI
 
-/// Manages the floating history panel that appears when Ctrl+V is pressed.
+/// Manages the floating history panel that appears when ⌘⇧V is pressed.
 @MainActor
 final class HistoryManager: ObservableObject {
     static let shared = HistoryManager()
