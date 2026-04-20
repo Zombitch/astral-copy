@@ -11,6 +11,8 @@ final class HistoryManager: ObservableObject {
     private var panel: NSPanel?
     private var closeObserver: NSObjectProtocol?
     private var clickOutsideMonitor: Any?
+    /// The app that was frontmost when the history panel was opened — paste target.
+    private var targetApp: NSRunningApplication?
 
     private init() {}
 
@@ -23,6 +25,7 @@ final class HistoryManager: ObservableObject {
         }
 
         isVisible = true
+        targetApp = NSWorkspace.shared.frontmostApplication
 
         let historyView = HistoryView()
         let hostingView = NSHostingView(rootView: historyView)
@@ -98,11 +101,17 @@ final class HistoryManager: ObservableObject {
     /// Called when the user selects an item from the history list.
     func pasteItem(_ item: ClipboardItem) {
         ClipboardService.shared.select(item)
+        let app = targetApp
+        targetApp = nil
         dismissHistory()
 
-        // Small delay to let the pasteboard update before simulating paste
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-            EventTapManager.shared.simulatePaste()
+        // Re-activate the original app first (clicking the panel may have shifted focus),
+        // then wait for it to become frontmost before firing the synthetic Cmd+V.
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            app?.activate(options: .activateIgnoringOtherApps)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                EventTapManager.shared.simulatePaste()
+            }
         }
     }
 }
