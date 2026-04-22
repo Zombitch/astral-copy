@@ -1,3 +1,4 @@
+import ApplicationServices
 import SwiftUI
 
 @main
@@ -35,6 +36,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         // Register the global ⌘⇧V hotkey (Carbon API, no permissions needed)
         HotkeyManager.shared.register()
+
+        // Paste simulation needs Accessibility — prompt once so the user isn't left wondering why paste doesn't work.
+        if !AXIsProcessTrusted() {
+            let options = [kAXTrustedCheckOptionPrompt.takeRetainedValue(): true] as CFDictionary
+            AXIsProcessTrustedWithOptions(options)
+        }
 
         // Register launch-at-login if first run
         LaunchSettings.shared.registerIfFirstLaunch()

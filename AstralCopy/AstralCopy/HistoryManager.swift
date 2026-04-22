@@ -1,4 +1,6 @@
 import AppKit
+import ApplicationServices
+import Carbon.HIToolbox
 import SwiftUI
 
 /// Manages the floating history panel that appears when ⌘⇧V is pressed.
@@ -102,9 +104,6 @@ final class HistoryManager: ObservableObject {
     }
 
     /// Called when the user selects an item from the history list.
-    /// Puts the item on the pasteboard and hands focus back to the originating app,
-    /// so the user's next ⌘V lands in the right place. We deliberately do not
-    /// synthesize a keystroke — that would require Accessibility permission.
     func pasteItem(_ item: ClipboardItem) {
         ClipboardService.shared.select(item)
         let app = targetApp
@@ -115,6 +114,21 @@ final class HistoryManager: ObservableObject {
         // otherwise the activation can race the dismissal and be ignored.
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.08) {
             app?.activate(options: .activateIgnoringOtherApps)
+            // Small additional delay so the target app finishes activating before the keystroke lands.
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                Self.simulateCmdV()
+            }
         }
+    }
+
+    private static func simulateCmdV() {
+        guard AXIsProcessTrusted() else { return }
+        let src = CGEventSource(stateID: .hidSystemState)
+        let keyDown = CGEvent(keyboardEventSource: src, virtualKey: CGKeyCode(kVK_ANSI_V), keyDown: true)
+        let keyUp   = CGEvent(keyboardEventSource: src, virtualKey: CGKeyCode(kVK_ANSI_V), keyDown: false)
+        keyDown?.flags = .maskCommand
+        keyUp?.flags   = .maskCommand
+        keyDown?.post(tap: .cgAnnotatedSessionEventTap)
+        keyUp?.post(tap: .cgAnnotatedSessionEventTap)
     }
 }
