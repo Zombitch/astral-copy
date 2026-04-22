@@ -25,7 +25,10 @@ final class HistoryManager: ObservableObject {
         }
 
         isVisible = true
-        targetApp = NSWorkspace.shared.frontmostApplication
+        // Skip ourselves — if AstralCopy happens to be frontmost (menu bar/settings open),
+        // we have no meaningful paste target and don't want to reactivate our own app.
+        let frontmost = NSWorkspace.shared.frontmostApplication
+        targetApp = frontmost?.bundleIdentifier == Bundle.main.bundleIdentifier ? nil : frontmost
 
         let historyView = HistoryView()
         let hostingView = NSHostingView(rootView: historyView)
@@ -99,20 +102,19 @@ final class HistoryManager: ObservableObject {
     }
 
     /// Called when the user selects an item from the history list.
-    /// Writes the item to the clipboard; the user pastes with Cmd+V in their target app.
+    /// Puts the item on the pasteboard and hands focus back to the originating app,
+    /// so the user's next ⌘V lands in the right place. We deliberately do not
+    /// synthesize a keystroke — that would require Accessibility permission.
     func pasteItem(_ item: ClipboardItem) {
         ClipboardService.shared.select(item)
         let app = targetApp
         targetApp = nil
         dismissHistory()
 
-        // Re-activate the original app first (clicking the panel may have shifted focus),
-        // then wait for it to become frontmost before firing the synthetic Cmd+V.
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+        // Give the panel a frame to finish closing before we steal focus back,
+        // otherwise the activation can race the dismissal and be ignored.
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.08) {
             app?.activate(options: .activateIgnoringOtherApps)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-                //EventTapManager.shared.simulatePaste()
-            }
         }
     }
 }
