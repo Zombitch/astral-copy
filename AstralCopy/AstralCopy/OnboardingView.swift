@@ -61,7 +61,7 @@ struct OnboardingView: View {
             .sheet(isPresented: $showingAbout) { AboutView() }
         }
         .padding(24)
-        .frame(width: 480, height: 480)
+        .frame(width: 530, height: 530)
     }
 
     // MARK: - Helpers
@@ -113,7 +113,7 @@ struct OnboardingView: View {
         HStack(spacing: 12) {
             Image(systemName: icon)
                 .font(.title2)
-                .foregroundStyle(.accent)
+                .foregroundStyle(.tint)
                 .frame(width: 32)
             VStack(alignment: .leading, spacing: 2) {
                 Text(title).font(.headline)
