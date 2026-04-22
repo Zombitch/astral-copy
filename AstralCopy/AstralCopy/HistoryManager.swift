@@ -1,4 +1,5 @@
 import AppKit
+import Carbon.HIToolbox
 import SwiftUI
 
 /// Manages the floating history panel that appears when ⌘⇧V is pressed.
@@ -102,19 +103,47 @@ final class HistoryManager: ObservableObject {
     }
 
     /// Called when the user selects an item from the history list.
-    /// Puts the item on the pasteboard and hands focus back to the originating app,
-    /// so the user's next ⌘V lands in the right place. We deliberately do not
-    /// synthesize a keystroke — that would require Accessibility permission.
+    /// Puts the item on the pasteboard, re-activates the originating app, then
+    /// synthesizes ⌘V so the item is pasted in-place.
+    ///
+    /// The ⌘V synthesis uses `CGEvent.post`, which is silent: it never shows a
+    /// permission prompt. It only delivers the event if AstralCopy is already
+    /// authorized under System Settings → Privacy & Security → Accessibility.
+    /// When it isn't, the post is a no-op and the clipboard update still stands
+    /// so a manual ⌘V works.
     func pasteItem(_ item: ClipboardItem) {
         ClipboardService.shared.select(item)
         let app = targetApp
         targetApp = nil
         dismissHistory()
 
-        // Give the panel a frame to finish closing before we steal focus back,
-        // otherwise the activation can race the dismissal and be ignored.
+        // Let the panel finish closing, then raise the target app and fire ⌘V.
+        // The nested delay gives the activation a chance to land before the
+        // synthetic keystroke, otherwise it would hit whatever's frontmost.
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.08) {
             app?.activate(options: .activateIgnoringOtherApps)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.08) {
+                synthesizeCommandV()
+            }
         }
+    }
+}
+
+// MARK: - Paste synthesis
+
+/// Posts a ⌘V keystroke at the session event tap. No permission prompt is
+/// shown — if Accessibility isn't granted for AstralCopy the events are
+/// dropped silently by the OS, which is the behaviour we want.
+private func synthesizeCommandV() {
+    let source = CGEventSource(stateID: .combinedSessionState)
+    let vKey = CGKeyCode(kVK_ANSI_V)
+
+    if let down = CGEvent(keyboardEventSource: source, virtualKey: vKey, keyDown: true) {
+        down.flags = .maskCommand
+        down.post(tap: .cgAnnotatedSessionEventTap)
+    }
+    if let up = CGEvent(keyboardEventSource: source, virtualKey: vKey, keyDown: false) {
+        up.flags = .maskCommand
+        up.post(tap: .cgAnnotatedSessionEventTap)
     }
 }
