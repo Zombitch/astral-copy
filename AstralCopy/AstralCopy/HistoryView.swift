@@ -34,11 +34,16 @@ struct HistoryView: View {
     private var historyList: some View {
         List {
             ForEach(clipboard.history) { item in
-                HistoryRowView(item: item, compact: appSettings.compactMode)
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        historyManager.pasteItem(item)
-                    }
+                // Button is more reliable than onTapGesture inside a non-activating NSPanel:
+                // NSTableView consumes mouseDown before SwiftUI gesture recognisers see it,
+                // but AppKit always delivers the action to a Button.
+                Button {
+                    historyManager.pasteItem(item)
+                } label: {
+                    HistoryRowView(item: item, compact: appSettings.compactMode)
+                        .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
             }
         }
         .listStyle(.inset)

@@ -39,8 +39,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         // Paste simulation needs Accessibility — prompt once so the user isn't left wondering why paste doesn't work.
         if !AXIsProcessTrusted() {
-            let options = [kAXTrustedCheckOptionPrompt.takeRetainedValue(): true] as CFDictionary
-            AXIsProcessTrustedWithOptions(options)
+            let opts: NSDictionary = [kAXTrustedCheckOptionPrompt: kCFBooleanTrue!]
+            AXIsProcessTrustedWithOptions(opts)
         }
 
         // Register launch-at-login if first run

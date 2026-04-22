@@ -112,10 +112,10 @@ final class HistoryManager: ObservableObject {
 
         // Give the panel a frame to finish closing before we steal focus back,
         // otherwise the activation can race the dismissal and be ignored.
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.08) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             app?.activate(options: .activateIgnoringOtherApps)
-            // Small additional delay so the target app finishes activating before the keystroke lands.
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+            // Give the target app time to become key before we post the keystroke.
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 Self.simulateCmdV()
             }
         }
