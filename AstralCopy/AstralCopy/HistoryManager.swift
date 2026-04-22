@@ -111,7 +111,7 @@ final class HistoryManager: ObservableObject {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             app?.activate(options: .activateIgnoringOtherApps)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-                EventTapManager.shared.simulatePaste()
+                //EventTapManager.shared.simulatePaste()
             }
         }
     }

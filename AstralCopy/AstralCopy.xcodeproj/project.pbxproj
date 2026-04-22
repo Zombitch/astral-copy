@@ -10,7 +10,7 @@
 		43001C962F803AAE00A9C19D /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43001C952F803AAE00A9C19D /* AboutView.swift */; };
 		A10001 /* AstralCopyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10001 /* AstralCopyApp.swift */; };
 		A10002 /* ClipboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10002 /* ClipboardService.swift */; };
-		A10003 /* EventTapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10003 /* EventTapManager.swift */; };
+		A10003 /* HotkeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10003 /* HotkeyManager.swift */; };
 		A10004 /* HistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10004 /* HistoryManager.swift */; };
 		A10005 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10005 /* HistoryView.swift */; };
 		A10006 /* PermissionsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10006 /* PermissionsManager.swift */; };
@@ -27,7 +27,7 @@
 		43001C952F803AAE00A9C19D /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		B10001 /* AstralCopyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstralCopyApp.swift; sourceTree = "<group>"; };
 		B10002 /* ClipboardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardService.swift; sourceTree = "<group>"; };
-		B10003 /* EventTapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTapManager.swift; sourceTree = "<group>"; };
+		B10003 /* HotkeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyManager.swift; sourceTree = "<group>"; };
 		B10004 /* HistoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryManager.swift; sourceTree = "<group>"; };
 		B10005 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		B10006 /* PermissionsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionsManager.swift; sourceTree = "<group>"; };
@@ -71,7 +71,7 @@
 				43001C952F803AAE00A9C19D /* AboutView.swift */,
 				B10001 /* AstralCopyApp.swift */,
 				B10002 /* ClipboardService.swift */,
-				B10003 /* EventTapManager.swift */,
+				B10003 /* HotkeyManager.swift */,
 				B10004 /* HistoryManager.swift */,
 				B10005 /* HistoryView.swift */,
 				B10006 /* PermissionsManager.swift */,
@@ -170,7 +170,7 @@
 			files = (
 				A10001 /* AstralCopyApp.swift in Sources */,
 				A10002 /* ClipboardService.swift in Sources */,
-				A10003 /* EventTapManager.swift in Sources */,
+				A10003 /* HotkeyManager.swift in Sources */,
 				A10004 /* HistoryManager.swift in Sources */,
 				43001C962F803AAE00A9C19D /* AboutView.swift in Sources */,
 				A10005 /* HistoryView.swift in Sources */,
